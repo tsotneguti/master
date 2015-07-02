@@ -1,7 +1,6 @@
 package ge.combal.alan.arena.controller;
 
 import ge.combal.alan.arena.security.SecurityUser;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,5 +18,7 @@ public class MainController {
 
         return user;
     }
+
+
 
 }

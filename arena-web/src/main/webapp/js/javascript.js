@@ -35,3 +35,46 @@ $(function () {
        changeTheme();
    },50);
 });
+
+function springRequest(obj, callback, errorHandler) {
+    var springPrefix = '';
+    var reqObj = {
+        url: springPrefix + '' + obj.url,
+        method: obj.method || 'POST',
+        callback: function (opts, succ, xhr) {
+            if (succ && Ext.isFunction(callback)) {
+                var res;
+                try {
+                    res = Ext.decode(xhr.responseText);
+                } catch (e) {
+                    res = xhr.responseText;
+                }
+                return callback.call(null, res);
+            }
+        }
+    };
+    if (obj.data)
+        Ext.apply(reqObj, {
+            jsonData: Ext.encode(obj.data)
+        });
+    if (obj.params)
+        Ext.apply(reqObj, {
+            params: obj.params
+        });
+    if (Ext.isFunction(errorHandler))
+        Ext.apply(reqObj, {
+            failure: errorHandler
+        });
+
+    if (obj.pathVariable && obj.pathVariable.constructor != ({}).constructor) {
+        if (obj.pathVariable instanceof Array) {
+            for (var vr in obj.pathVariable) {
+                reqObj.url += '/' + obj.pathVariable[vr];
+            }
+        } else {
+            reqObj.url += '/' + obj.pathVariable;
+        }
+    }
+
+    return Ext.Ajax.request(reqObj);
+}

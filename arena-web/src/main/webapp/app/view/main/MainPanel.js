@@ -19,13 +19,13 @@ Ext.define('AA.view.main.MainPanel', {
 
         var codePanel = Ext.create('AA.view.coding.CodePanel');
 
-        var mainCardPanel = Ext.create('Ext.panel.Panel', {
+        var mainPanel = Ext.create('Ext.panel.Panel', {
             region: 'center',
-            layout: 'card',
-            items : [codePanel]
+            layout: 'fit',
+            items: [codePanel]
         });
 
-        me.items = [mainCardPanel, header];
+        me.items = [mainPanel, header];
 
         me.callParent(arguments);
     }

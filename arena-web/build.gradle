@@ -43,6 +43,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile('javax.inject:javax.inject:1')
     compile('com.typesafe.akka:akka-actor_2.10:2.3.2')
+    compile project(":turing")
 }
 
 task wrapper(type: Wrapper) {

@@ -1,7 +1,6 @@
 package ge.combal.alan.arena.security;
 
 import ge.combal.alan.arena.domain.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.Repository;
 

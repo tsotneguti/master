@@ -10,9 +10,9 @@ Ext.define('AA.view.coding.VisualisationPanel', {
         cfg = cfg || {};
         var me = this;
 
-        var tape = Ext.create('AA.view.coding.Tape');
+        me.tape = Ext.create('AA.view.coding.Tape');
 
-        me.items = [tape];
+        me.items = [me.tape];
 
         me.callParent(arguments);
     }

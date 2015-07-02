@@ -4,18 +4,7 @@ ace.define("ace/mode/turing", ["require", "exports", "module", "ace/lib/oop", "a
     };
     r.inherits(l, i), function () {
         this.toggleCommentLines = function (e, t, n, r) {
-            var i = !0, s = /^(\s*)#/;
-            for (var o = n; o <= r; o++)if (!s.test(t.getLine(o))) {
-                i = !1;
-                break
-            }
-            if (i) {
-                var u = new a(0, 0, 0, 0);
-                for (var o = n; o <= r; o++) {
-                    var f = t.getLine(o), l = f.match(s);
-                    u.start.row = o, u.end.row = o, u.end.column = l[0].length, t.replace(u, l[1])
-                }
-            } else t.indentRows(n, r, "#")
+
         }, this.getNextLineIndent = function (e, t, n) {
             var r = this.$getIndent(t), i = this.$tokenizer.getLineTokens(t, e), s = i.tokens;
             if (s.length && s[s.length - 1].type == "comment")return r;
@@ -52,7 +41,7 @@ ace.define("ace/mode/turing_highlight_rules", ["require", "exports", "module", "
             token: "constant.numeric",
             regex: "[+-]?\\d(?:\\d|_(?=\\d))*(?:(?:\\.\\d(?:\\d|_(?=\\d))*)?(?:[eE][+-]?\\d+)?)?\\b"
         }, c = function () {
-            var t = "G|R",
+            var t = "L|R|S|W|G|I",
                 i = this.$keywords = this.createKeywordMapper({
                     keyword: t,
                     "constant.language": "",
@@ -64,16 +53,7 @@ ace.define("ace/mode/turing_highlight_rules", ["require", "exports", "module", "
                 start: [{
                     token: "comment",
                     regex: "#.*$"
-                }, {
-                    token: "string.regexp",
-                    regex: "[/](?:(?:\\[(?:\\\\]|[^\\]])+\\])|(?:\\\\/|[^\\]/]))*[/]\\w*\\s*(?=[).,;]|$)"
-                }, o, u, a, {
-                    token: "variable.instance",
-                    regex: "@{1,2}[a-zA-Z_\\d]+"
-                }, s, f, l, {
-                    token: "constant.language.boolean",
-                    regex: "(?:true|false)\\b"
-                }, {
+                }, o, u, a, s, f, l, {
                     token: i,
                     regex: "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
                 }, {

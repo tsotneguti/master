@@ -32,12 +32,10 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
         return new MongoClient(Collections.singletonList(new ServerAddress(getHost(), getPort())));
     }
 
-
     private String getHost() {
         String host = env.getProperty("mongo.server");
         return host == null ? "localhost" : host;
     }
-
 
     private Integer getPort() {
         String port = env.getProperty("mongo.port");

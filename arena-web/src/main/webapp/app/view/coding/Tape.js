@@ -11,7 +11,7 @@ Ext.define('AA.view.coding.Tape', {
 
         var _ = {xtype: 'splitter', width: 2};
 
-        tape = Ext.create('Ext.form.Panel', {
+        var tape = Ext.create('Ext.form.Panel', {
             flex: 1,
             layout: 'hbox',
             border: false,
@@ -46,15 +46,21 @@ Ext.define('AA.view.coding.Tape', {
 
         me.items = [ll, _, l, _, tape, _, r, _, rr];
 
+        me.tape = tape;
+
         me.callParent(arguments);
 
 
-        function addItem(v) {
+        function addItem(id,v) {
             var item = Ext.create('Ext.form.field.Text', {
                 cls: 'tape-item',
                 fieldStyle: 'background-color: blanchedalmond;',
                 value: v,
-                name: "id" + v
+                name: "id" + id,
+                id : id,
+                emptyText: '_',
+                maxLength: 1,
+                enforceMaxLength: true
             });
             tape.add(item);
         }
@@ -64,7 +70,7 @@ Ext.define('AA.view.coding.Tape', {
             me.values = [];
             setTimeout(function () {
                 tape.totalItems = Math.round(($(tape.el.dom).width() ) / $(tape.items.items[0].el.dom).width());
-// TODO
+
                 for (var i = 1; i < tape.totalItems; i++) {
                     addItem(i);
                 }
@@ -91,9 +97,6 @@ Ext.define('AA.view.coding.Tape', {
             tape.current = tape.items.items[tape.currentPos];
             tape.current.addCls("tape-center-item");
 
-
-
-            addi = addItem;
         }
 
         function slideValues(v) {

@@ -54,7 +54,7 @@ public class DequeTape implements Tape {
     @Override
     public String toString() {
         Collection<Character> tape = getTapeAsCollection();
-
+        
         StringBuilder builder = new StringBuilder();
 
         for (Character character : tape) {

@@ -10,12 +10,12 @@ Ext.define('AA.view.main.Theme', {
         me.menu = [
             {text: 'chrome', handler: changeT},
             {text: 'cobalt', handler: changeT},
-            {text: 'crimson_editor', handler: changeT},
-            {text: 'eclipse', handler: changeT},
+            //{text: 'crimson_editor', handler: changeT},
+            //{text: 'eclipse', handler: changeT},
             {text: 'idle_fingers', handler: changeT},
-            {text: 'github', handler: changeT},
-            {text: 'mono_industrial', handler: changeT},
-            {text: 'xcode', handler: changeT}
+            //{text: 'github', handler: changeT},
+            //{text: 'mono_industrial', handler: changeT},
+            //{text: 'xcode', handler: changeT}
         ];
 
         me.text = "მენიუ";
