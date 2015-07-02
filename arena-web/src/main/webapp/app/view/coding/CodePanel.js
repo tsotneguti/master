@@ -57,13 +57,12 @@ Ext.define('AA.view.coding.CodePanel', {
             for (j = data.length -1; j >= 0; j--) if (data[j]) break;
             for (; i <= j; i++) tape.push(data[i] ? data[i] : " ");
 
-            log(cc=code)
+            log(cc=code);
 
             var c = code.getValue().split("\n")
 
             for(i in c) c[i] = c[i].replace(/ /g, '');
 
-log(c)
             springRequest({
                 url: 'machine/eval',
                 method: 'POST',

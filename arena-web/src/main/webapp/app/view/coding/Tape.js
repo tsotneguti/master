@@ -51,18 +51,37 @@ Ext.define('AA.view.coding.Tape', {
         me.callParent(arguments);
 
 
-        function addItem(id,v) {
+        function addItem(id, v) {
             var item = Ext.create('Ext.form.field.Text', {
                 cls: 'tape-item',
                 fieldStyle: 'background-color: blanchedalmond;',
                 value: v,
                 name: "id" + id,
-                id : id,
+                id: id,
                 emptyText: '_',
                 maxLength: 1,
-                enforceMaxLength: true
+                enforceMaxLength: true,
+                enableKeyEvents: true,
+                listeners: {
+                    keydown: function (t, e) {
+                        if (e.keyCode == 37) moveCursor(-1);
+                        if (e.keyCode == 39) moveCursor(1)
+                    },
+                    focus: function () {
+                        tape.focusedPos = id;
+                    },
+                    blur: function () {
+                        tape.focusedPos = null;
+                    }
+                }
             });
             tape.add(item);
+        }
+
+        function moveCursor(v) {
+            var dest = tape.focusedPos + v;
+            if (dest === undefined || dest < 0 || dest >= tape.totalItems) return;
+            tape.items.getRange()[dest].focus();
         }
 
         me.on('afterrender', function () {
