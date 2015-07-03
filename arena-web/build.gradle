@@ -34,7 +34,7 @@ repositories {
 
 dependencies {
 //    compile("org.springframework.boot:spring-boot-starter-data-rest")
-    compile("org.springframework.data:spring-data-neo4j")
+//    compile("org.springframework.data:spring-data-neo4j")
     compile("org.hibernate:hibernate-validator")
     compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -42,7 +42,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile('javax.inject:javax.inject:1')
-    compile('com.typesafe.akka:akka-actor_2.10:2.3.2')
+//    compile('com.typesafe.akka:akka-actor_2.10:2.3.2')
     compile project(":turing")
 }
 
