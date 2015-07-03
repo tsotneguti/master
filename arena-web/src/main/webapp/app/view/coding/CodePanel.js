@@ -36,7 +36,7 @@ Ext.define('AA.view.coding.CodePanel', {
             items: [code],
             tbar: [themeBtn, runBtn],
             minWidth : 400,
-            border : false
+            //border : false
         });
 
         me.items = [codePanel, visualisation, problemPanel];
@@ -57,8 +57,6 @@ Ext.define('AA.view.coding.CodePanel', {
             for (j = data.length -1; j >= 0; j--) if (data[j]) break;
             for (; i <= j; i++) tape.push(data[i] ? data[i] : " ");
 
-            log(cc=code);
-
             var c = code.getValue().split("\n")
 
             for(i in c) c[i] = c[i].replace(/ /g, '');
@@ -71,6 +69,7 @@ Ext.define('AA.view.coding.CodePanel', {
                     code: c
                 }
             }, function (data) {
+                Ext.MessageBox.alert("შედეგი", data.result);
                 log(data)
             }, function () {
                 log("error")

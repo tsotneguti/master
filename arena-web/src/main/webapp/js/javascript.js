@@ -14,7 +14,7 @@ function log() {
 }
 
 function logout() {
-    alert("logout");
+    window.location.replace(window.location.origin + "/login?logout");
 }
 
 function changeTheme(item) {

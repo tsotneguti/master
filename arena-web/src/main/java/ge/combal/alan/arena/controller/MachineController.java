@@ -1,6 +1,6 @@
 package ge.combal.alan.arena.controller;
 
-import ge.combal.alan.arena.service.MachineService;
+import ge.combal.alan.arena.service.api.MachineService;
 import ge.combal.alan.turing.Code;
 import ge.combal.alan.turing.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ public class MachineController {
 
     @RequestMapping(value = "eval", method = RequestMethod.POST)
     public Result eval(@RequestBody Code code, HttpServletRequest request) {
+
         return service.eval(code);
     }
 }
