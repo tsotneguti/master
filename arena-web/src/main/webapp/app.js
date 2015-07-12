@@ -31,18 +31,48 @@ Ext.Ajax.on({
 Ext.application({
     name: 'AA',
     appForlder: 'app',
+    defaultToken: 'home',
+    routes: {
+        'problem/:id': {
+            action: 'onProblem',
+            conditions: {
+                ':id': '([0-9]+)'
+            }
+        },
+        'home': 'onHome',
+        'problems': 'onProblems'
+    },
+    onProblem: function (id) {
+        loadProblem(id);
+    },
+    onHome: function () {
+        loadHome();
+    },
+    onProblems: function () {
+        loadProblems();
+    },
+    listen : {
+        controller : {
+            '#' : {
+                unmatchedroute : 'onUnmatchedRoute'
+            }
+        }
+    },
+    onUnmatchedRoute : function(){
+        loadErrorPage();
+    },
     launch: function () {
 
         AA.user = {
-            firstName : 'alan',
-            lastName : 'turing'
+            firstName: 'alan',
+            lastName: 'turing'
         }
 
-        var mainPanel = Ext.create('AA.view.main.MainPanel');
+        AA.mainPanel = Ext.create('AA.view.main.MainPanel');
 
         var viewport = Ext.create('Ext.container.Viewport', {
             layout: 'fit',
-            items: [mainPanel]
+            items: [AA.mainPanel]
         });
 
     }

@@ -31,9 +31,9 @@ function changeTheme(item) {
 };
 
 $(function () {
-   setTimeout(function () {
-       changeTheme();
-   },50);
+    setTimeout(function () {
+        changeTheme();
+    }, 50);
 });
 
 function springRequest(obj, callback, errorHandler) {
@@ -77,4 +77,27 @@ function springRequest(obj, callback, errorHandler) {
     }
 
     return Ext.Ajax.request(reqObj);
+}
+
+function loadProblem(id) {
+    //alert("loaded " + id);
+
+    AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.codePanel);
+    //TODO
+}
+
+function loadHome() {
+    AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.home);
+}
+
+function loadProblems() {
+    AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.problems);
+}
+
+function loadErrorPage() {
+    AA.mainPanel.mainCardPanel.setActiveItem(Ext.create('Ext.panel.Panel', {
+        layout: 'fit',
+        bodyStyle: 'text-align: center; padding-top : 200px; font-size: 20px; color : red',
+        html: 'გვერდი ვერ მოიძებნა!!!'
+    }));
 }

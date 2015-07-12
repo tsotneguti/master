@@ -17,16 +17,21 @@ Ext.define('AA.view.main.MainPanel', {
             region: 'north'
         });
 
-        var codePanel = Ext.create('AA.view.coding.CodePanel');
+        me.home = Ext.create('AA.view.home.Home', {itemId: "home"});
 
-        var mainPanel = Ext.create('Ext.panel.Panel', {
+        me.problems = Ext.create('AA.view.problems.Problems', {itemId: "problems"});
+
+        me.codePanel = Ext.create('AA.view.coding.CodePanel', {itemId: "coding"});
+
+        me.mainCardPanel = Ext.create('Ext.panel.Panel', {
             region: 'center',
-            layout: 'fit',
-            items: [codePanel]
+            layout: 'card',
+            items: []
         });
 
-        me.items = [mainPanel, header];
+        me.items = [me.mainCardPanel, me.problems, header];
 
         me.callParent(arguments);
+
     }
 });

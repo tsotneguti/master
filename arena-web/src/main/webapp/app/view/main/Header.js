@@ -12,10 +12,23 @@ Ext.define('AA.view.main.Header', {
 
         var logo = Ext.create('Ext.Img',{
             src : '/images/alan-arena.png',
-            height : 30
+            height : 25,
+            width : 80
         });
 
-        me.tbar = [logo ,'->' ,userBtn ];
+        var home = Ext.create('Ext.button.Button',{
+            text : 'HOME',
+            scale : 'large',
+            handler : loadHome
+        });
+
+        var problems = Ext.create('Ext.button.Button',{
+            text : 'ამოცანები',
+            scale : 'large',
+            handler : loadProblems
+        });
+
+        me.tbar = [logo ,'-',home,'-',problems,'->' ,userBtn ];
 
         me.callParent(arguments);
     }
