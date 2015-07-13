@@ -21,7 +21,7 @@ import java.util.List;
 public class MainController {
 
     @RequestMapping("get-user")
-    public SecurityUser user(Principal principal){
+    public SecurityUser user(Principal principal) {
 
         SecurityUser user = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -45,18 +45,22 @@ public class MainController {
         response.sendRedirect("./login");
     }
 
-    @RequestMapping("/problems")
+    @RequestMapping(value = "/problems")
     public List<Problem> getProblems(
-//            @ModelAttribute(value="problemId") int problemId
-    ){
-        return problemRepository.findAll();
+            @RequestBody(required = false) String problemId
+//            @PathVariable  String problemId
+    ) {
+        if (problemId == null)
+            return problemRepository.findAll();
+        System.out.println(problemId);
+        return problemRepository.findByProblemId(problemId);
     }
 
 //    @RequestMapping(value = "login", method = RequestMethod.GET)
 //    public ModelAndView login(
 //            @RequestParam(value = "error", required = false) String error,
 //            @RequestParam(value = "logout", required = false) String logout) {
-//
+//5
 //        ModelAndView model = new ModelAndView();
 //        if (error != null) {
 //            model.addObject("error", "Invalid username and password!");

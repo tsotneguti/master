@@ -55,7 +55,7 @@ function springRequest(obj, callback, errorHandler) {
     };
     if (obj.data)
         Ext.apply(reqObj, {
-            jsonData: Ext.encode(obj.data)
+            jsonData: obj.data instanceof Object ?  Ext.encode(obj.data) : obj.data
         });
     if (obj.params)
         Ext.apply(reqObj, {
@@ -79,11 +79,9 @@ function springRequest(obj, callback, errorHandler) {
     return Ext.Ajax.request(reqObj);
 }
 
-function loadProblem(id) {
-    //alert("loaded " + id);
-
+function loadProblem(problemId) {
     AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.codePanel);
-    //TODO
+    AA.mainPanel.codePanel.loadProblem(problemId);
 }
 
 function loadHome() {
@@ -100,4 +98,8 @@ function loadErrorPage() {
         bodyStyle: 'text-align: center; padding-top : 200px; font-size: 20px; color : red',
         html: 'გვერდი ვერ მოიძებნა!!!'
     }));
+}
+
+function goToErrorPage(){
+    window.location.href = "#PageNotFount"
 }

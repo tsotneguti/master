@@ -12,15 +12,15 @@ Ext.define('AA.view.problem.ProblemPanel', {
         cfg = cfg || {};
         var me = this;
 
-        var text = Ext.create('Ext.panel.Panel', {
-            html: '<div class="panel-body"> <p style="text-align: justify;"> Samodelkin, Professor decided make by hand volumetric model bricks from matches, and use the matches for edges. Length of edges of every brick equally for one match.</p> <p style="text-align: justify;"> For model’s construction of three bricks he uses <strong>28</strong> matches.</p> <p style="text-align: justify;"> What least quantity of matches Samodelkin needs for construction of model with N bricks?</p> <p style="text-align: justify;"> Every number of problems does not exceed <strong>2·10<sup>9</sup></strong>.</p> <p> <strong>Input</strong></p> <p> One number <strong>N</strong> is quantity of bricks.</p> <p> <strong>Output</strong></p> <p> One number is quantity of matches.</p> </div>',
+        me.text = Ext.create('Ext.panel.Panel', {
+            html : "no data",
             flex: 1,
             bodyPadding: 10,
             autoScroll: true,
             border: false
         });
 
-        var inOut = Ext.create('Ext.grid.Panel', {
+        me.inOut = Ext.create('Ext.grid.Panel', {
             store: {
                 fields: ['in', 'out']
             },
@@ -41,23 +41,12 @@ Ext.define('AA.view.problem.ProblemPanel', {
             border: false, split: true,
             style: 'border-top : 1px solid black',
             height: 200,
-            items: [inOut],
+            items: [me.inOut],
             layout: 'fit'
         });
 
-        me.items = [text, info];
+        me.items = [me.text, info];
 
         me.callParent(arguments);
-
-        me.on('afterrender', function(){
-
-            inOut.store.loadData([{
-                in : 123,
-                out: 987
-            }, {
-                in : "abc sdfsd fsdf sd",
-                out: "აბც"
-            }]);
-        });
     }
 });

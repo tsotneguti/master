@@ -10,7 +10,7 @@ Ext.define('AA.view.problems.Problems', {
         var me = this;
 
         var gridStore = Ext.create('Ext.data.Store', {
-            fields: ['name', 'difficulty']
+            fields: ['name', 'difficulty', 'problemId']
         });
 
         var grid = Ext.create('Ext.grid.Panel', {
@@ -20,8 +20,8 @@ Ext.define('AA.view.problems.Problems', {
                 {text: 'სირთულე', dataIndex: 'difficulty', flex: 1}
             ],
             listeners : {
-                dblclick : function(){
-
+                itemdblclick : function(dv, record, item, index, e){
+                    document.location.href = "#problem/"+ record.data.problemId;
                 }
             }
         });
@@ -41,9 +41,7 @@ Ext.define('AA.view.problems.Problems', {
                 method: 'POST',
                 data: null,
             }, function (data) {
-                //Ext.MessageBox.alert("შედეგი", data);
-                grid.store.loadData(data)
-                log(data)
+                grid.store.loadData(data);
             }, function () {
                 log("error")
             });

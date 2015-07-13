@@ -26,8 +26,18 @@ Ext.define('AA.view.coding.CodePanel', {
             handler: run
         });
 
+        var prev = Ext.create('Ext.button.Button', {
+            text: '&laquo; წინა',
+            handler: goToPrev
+        });
+        var next = Ext.create('Ext.button.Button', {
+            text: 'შემდეგი &raquo;',
+            handler: goToNext
+        });
+
         var problemPanel = Ext.create('AA.view.problem.ProblemPanel', {
-            region: 'center'
+            region: 'center',
+            bbar: [prev, '->', next]
         });
 
         var codePanel = Ext.create('Ext.panel.Panel', {
@@ -35,7 +45,7 @@ Ext.define('AA.view.coding.CodePanel', {
             layout: 'fit',
             items: [code],
             tbar: [themeBtn, runBtn],
-            minWidth : 400,
+            minWidth: 400,
             //border : false
         });
 
@@ -49,17 +59,17 @@ Ext.define('AA.view.coding.CodePanel', {
             var data = [], tape = [];
             var i, j;
 
-            for(i in values) {
+            for (i in values) {
                 data.push(values[i]);
             }
 
             for (i = 0; i < data.length; i++) if (data[i]) break;
-            for (j = data.length -1; j >= 0; j--) if (data[j]) break;
+            for (j = data.length - 1; j >= 0; j--) if (data[j]) break;
             for (; i <= j; i++) tape.push(data[i] ? data[i] : " ");
 
             var c = code.getValue().split("\n")
 
-            for(i in c) c[i] = c[i].replace(/ /g, '');
+            for (i in c) c[i] = c[i].replace(/ /g, '');
 
             springRequest({
                 url: 'machine/eval',
@@ -75,12 +85,77 @@ Ext.define('AA.view.coding.CodePanel', {
                 log("error")
             });
         }
+
+        me.loadProblem = function (problemId) {
+            me.setLoading("იტვირთება...");
+            prev.disable();
+            next.disable();
+
+            springRequest({
+                url: 'alan/problems',
+                method: 'POST',
+                data: problemId,
+            }, function (data) {
+                if (!data.length) {
+                    goToErrorPage();
+                }
+                problemPanel.text.setHtml(data[0].text);
+                problemPanel.inOut.store.loadData(data[0].examples);
+
+                me.problemId = problemId;
+
+                springRequest({
+                    url: 'alan/problems',
+                    method: 'POST',
+                    data: (me.problemId - 1) + "",
+                }, function (data) {
+                    if (data && data.length) {
+                        prev.setText("&laquo; წინა (" + data[0].name + ")");
+                        prev.enable();
+                    } else {
+                        prev.setText("&laquo; წინა");
+                    }
+                }, function () {
+                    log("error");
+                });
+
+                springRequest({
+                    url: 'alan/problems',
+                    method: 'POST',
+                    data: +me.problemId + 1,
+                }, function (data) {
+                    if (data && data.length) {
+                        next.setText("შემდეგი &raquo; (" + data[0].name + ")");
+                        next.enable();
+                    } else {
+                        next.setText("შემდეგი &raquo;");
+                    }
+                }, function () {
+                    log("error");
+                });
+
+                me.setLoading(false);
+
+            }, function () {
+                log("error");
+            });
+        }
+
+        function goToPrev() {
+            window.location.href = "#problem/" + (me.problemId - 1);
+
+        }
+
+        function goToNext() {
+            window.location.href = "#problem/" + (+me.problemId + 1);
+        }
+
     }
 });
 
 /*
 
-ორობითის შეცვლა
+ ორობითის შეცვლა
  R
  L
  I 2

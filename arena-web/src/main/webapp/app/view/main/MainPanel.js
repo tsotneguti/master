@@ -29,7 +29,7 @@ Ext.define('AA.view.main.MainPanel', {
             items: []
         });
 
-        me.items = [me.mainCardPanel, me.problems, header];
+        me.items = [me.mainCardPanel,header];
 
         me.callParent(arguments);
 

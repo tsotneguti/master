@@ -1,7 +1,10 @@
 package ge.combal.alan.arena.domain;
 
+import javafx.util.Pair;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 /**
  * Created by tsotne on 7/12/15.
@@ -14,6 +17,7 @@ public class Problem {
     private String text;
     private String difficulty;
     private String problemId;
+    private List<Example> examples;
 
     public String getId() {
         return id;
@@ -53,5 +57,13 @@ public class Problem {
 
     public void setProblemId(String problemId) {
         this.problemId = problemId;
+    }
+
+    public List<Example> getExamples() {
+        return examples;
+    }
+
+    public void setExamples(List<Example> examples) {
+        this.examples = examples;
     }
 }
