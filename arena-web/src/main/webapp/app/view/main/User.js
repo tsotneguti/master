@@ -8,9 +8,22 @@ Ext.define('AA.view.main.User', {
             {
                 text: 'გამოსვლა',
                 handler: logout
+            },
+            {
+                text: 'მომხმარებლის ინფორმაცია',
+                handler: function(){
+                    window.location.href = "/#userInfo"
+                }
             }
         ];
-        me.text = AA.user.firstName + ' ' + AA.user.lastName;
+
         me.callParent(arguments);
+
+        getUser(function (user) {
+            if (user) {
+                AA.user = user;
+                me.setText(AA.user.firstName + ' ' + AA.user.lastName);
+            }
+        });
     }
 });

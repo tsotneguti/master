@@ -92,6 +92,11 @@ function loadProblems() {
     AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.problems);
 }
 
+function loadUserInfo() {
+    AA.mainPanel.mainCardPanel.setActiveItem(AA.mainPanel.userInfo);
+    AA.mainPanel.userInfo.loadUserInfo();
+}
+
 function loadErrorPage() {
     AA.mainPanel.mainCardPanel.setActiveItem(Ext.create('Ext.panel.Panel', {
         layout: 'fit',
@@ -101,5 +106,18 @@ function loadErrorPage() {
 }
 
 function goToErrorPage(){
-    window.location.href = "#PageNotFount"
+    loadErrorPage()
 }
+
+function getUser(s,f){
+
+    if(!s) s = function(){}
+    if(!f) f = function(){}
+
+    springRequest({
+        url: 'alan/get-user',
+        method: 'POST',
+        data: null,
+    }, s, f);
+}
+

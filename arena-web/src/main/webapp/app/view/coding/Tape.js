@@ -54,7 +54,7 @@ Ext.define('AA.view.coding.Tape', {
         function addItem(id, v) {
             var item = Ext.create('Ext.form.field.Text', {
                 cls: 'tape-item',
-                fieldStyle: 'background-color: blanchedalmond;',
+                fieldStyle: 'background-color: rgb(232, 232, 232);',
                 value: v,
                 name: "id" + id,
                 id: id,

@@ -5,6 +5,7 @@ Ext.define('AA.view.coding.VisualisationPanel', {
     extend: 'Ext.panel.Panel',
     minHeight : 150,
     scrolable : false,
+    bodyCls : 'visualisation',
     bodyPadding: 15,
     constructor: function (cfg) {
         cfg = cfg || {};

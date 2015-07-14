@@ -10,29 +10,29 @@ Ext.define('AA.view.main.Header', {
 
         var userBtn = Ext.create('AA.view.main.User');
 
-        var logo = Ext.create('Ext.Img',{
-            src : '/images/alan-arena.png',
-            height : 25,
-            width : 80
+        var logo = Ext.create('Ext.Img', {
+            src: '/images/alan-arena.png',
+            height: 25,
+            width: 80
         });
 
-        var home = Ext.create('Ext.button.Button',{
-            text : 'HOME',
-            scale : 'large',
-            handler : function(){
+        var home = Ext.create('Ext.button.Button', {
+            text: 'HOME',
+            scale: 'large',
+            handler: function () {
                 window.location.href = "#home"
             }
         });
 
-        var problems = Ext.create('Ext.button.Button',{
-            text : 'ამოცანები',
-            scale : 'large',
-            handler : function(){
+        var problems = Ext.create('Ext.button.Button', {
+            text: 'ამოცანები',
+            scale: 'large',
+            handler: function () {
                 window.location.href = "#problems"
             }
         });
 
-        me.tbar = [logo ,'-',home,'-',problems,'->' ,userBtn ];
+        me.tbar = [logo, '-', home, '-', problems, '->', userBtn];
 
         me.callParent(arguments);
     }

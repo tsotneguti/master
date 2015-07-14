@@ -23,6 +23,8 @@ Ext.define('AA.view.main.MainPanel', {
 
         me.codePanel = Ext.create('AA.view.coding.CodePanel', {itemId: "coding"});
 
+        me.userInfo = Ext.create('AA.view.user.UserInfo', {itemId: "userInfo"});
+
         me.mainCardPanel = Ext.create('Ext.panel.Panel', {
             region: 'center',
             layout: 'card',

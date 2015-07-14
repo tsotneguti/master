@@ -40,7 +40,8 @@ Ext.application({
             }
         },
         'home': 'onHome',
-        'problems': 'onProblems'
+        'problems': 'onProblems',
+        'userInfo' : 'onUserInfo'
     },
     onProblem: function (id) {
         loadProblem(id);
@@ -50,6 +51,9 @@ Ext.application({
     },
     onProblems: function () {
         loadProblems();
+    },
+    onUserInfo: function () {
+        loadUserInfo();
     },
     listen : {
         controller : {
@@ -63,17 +67,10 @@ Ext.application({
     },
     launch: function () {
 
-        AA.user = {
-            firstName: 'alan',
-            lastName: 'turing'
-        }
-
         AA.mainPanel = Ext.create('AA.view.main.MainPanel');
-
         var viewport = Ext.create('Ext.container.Viewport', {
             layout: 'fit',
             items: [AA.mainPanel]
         });
-
     }
 });

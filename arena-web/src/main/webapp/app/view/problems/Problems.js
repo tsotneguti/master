@@ -19,6 +19,12 @@ Ext.define('AA.view.problems.Problems', {
                 {text: 'ამოცანა', dataIndex: 'name', flex: 1},
                 {text: 'სირთულე', dataIndex: 'difficulty', flex: 1}
             ],
+            viewConfig: {
+                getRowClass: function(rec, rowIdx, params, store) {
+                    //log(rec.get('problemId') == 1 )
+                    return "problems-grid-row";
+                }
+            },
             listeners : {
                 itemdblclick : function(dv, record, item, index, e){
                     document.location.href = "#problem/"+ record.data.problemId;
@@ -29,8 +35,9 @@ Ext.define('AA.view.problems.Problems', {
         me.items = [grid];
 
         me.tbar = [{
-            text : 'refresh',
-            handler : loadProblems
+            text : 'reload',
+            handler : loadProblems,
+            iconCls : 'reload-image'
         }];
 
         me.callParent(arguments);
