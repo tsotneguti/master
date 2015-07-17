@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/", "/index.html", "/static/**", "/resources/**", "/resources/public/**", "/test", "/register.html", "/login.html", "/alan/css/**").permitAll()
                 .anyRequest().authenticated()
 
-//                .and().formLogin().loginPage("/alan/login").failureUrl("/alan/login?error").permitAll().and()
+//                .and().formLogin().loginPage("/alan/login").usernameParameter("username").passwordParameter("password").failureUrl("/#error").permitAll().and()
 //                .logout().logoutUrl("/alan/login?logout").permitAll()
 
                 .and().csrf().disable()

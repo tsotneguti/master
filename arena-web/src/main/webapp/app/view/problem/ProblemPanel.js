@@ -39,7 +39,7 @@ Ext.define('AA.view.problem.ProblemPanel', {
         var info = Ext.create('Ext.panel.Panel', {
             bodyPadding: 10,
             border: false, split: true,
-            style: 'border-top : 1px solid black',
+            style: 'border-top : 1px dashed',
             height: 200,
             items: [me.inOut],
             layout: 'fit'

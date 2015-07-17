@@ -4,12 +4,13 @@
 
 Turing = (function(){
     var turing = {
-        run: function (tape, code) {
+        state : "1000000",
+        code : 'W1',
+        run: function (state, code) {
+            if(tape) this.state = state;
+            if(code) this.code = code;
             return "get";
         }
     };
-
-    
-
     return turing;
 }());

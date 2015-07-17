@@ -8,10 +8,8 @@ import ge.combal.alan.arena.repository.TestRepository;
 import ge.combal.alan.arena.repository.UserRepository;
 import ge.combal.alan.arena.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -55,7 +53,6 @@ public class MainController {
     ) {
         if (problemId == null)
             return problemRepository.findAll();
-        System.out.println(problemId);
         return problemRepository.findByProblemId(problemId);
     }
 

@@ -7,7 +7,38 @@ Ext.define('AA.view.coding.CodePanel', {
     constructor: function (cfg) {
         cfg = cfg || {};
         var me = this;
-        var code = Ext.create('Ext.form.field.TextArea');
+
+        var codeArea = Ext.create('Ext.Component', {
+            autoEl: {
+                tag: 'div',
+                contenteditable: true
+            },
+            flex: 1,
+            cls: 'codearea'
+        });
+
+        var linesContainer = Ext.create('Ext.Component', {
+            autoEl: {
+                tag: 'div'
+            },
+            cls: 'container',
+            width: 45
+        });
+
+        var linesDiv = document.createElement("div");
+        linesDiv.setAttribute('class', 'line-numberer');
+
+        lc = linesContainer;
+        ld = linesDiv;
+        ca = codeArea;
+        var code = new Ext.container.Container({
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            cls: 'coding',
+            items: [linesContainer, codeArea]
+        });
         var themeBtn = Ext.create('AA.view.main.Theme', {
             textarea: code
         });
@@ -25,14 +56,21 @@ Ext.define('AA.view.coding.CodePanel', {
             text: 'გაშვება ( run )',
             handler: run
         });
+        var runTestBtn = Ext.create('Ext.button.Button', {
+            scale: 'small',
+            text: 'ტესტირება ( testing )',
+            handler: runTesting
+        });
 
         var prev = Ext.create('Ext.button.Button', {
             text: '&laquo; წინა',
-            handler: goToPrev
+            handler: goToPrev,
+            cls: 'blue-button'
         });
         var next = Ext.create('Ext.button.Button', {
             text: 'შემდეგი &raquo;',
-            handler: goToNext
+            handler: goToNext,
+            cls: 'blue-button'
         });
 
         var problemPanel = Ext.create('AA.view.problem.ProblemPanel', {
@@ -44,7 +82,7 @@ Ext.define('AA.view.coding.CodePanel', {
             region: 'west',
             layout: 'fit',
             items: [code],
-            tbar: [themeBtn, runBtn],
+            tbar: [themeBtn, runBtn, runTestBtn],
             minWidth: 400,
             //border : false
         });
@@ -69,7 +107,7 @@ Ext.define('AA.view.coding.CodePanel', {
 
             var c = code.getValue().split("\n")
 
-            for (i in c) c[i] = c[i].replace(/ /g, '');
+            //for (i in c) c[i] = c[i].replace(/ /g, '');
 
             springRequest({
                 url: 'machine/eval',
@@ -84,6 +122,22 @@ Ext.define('AA.view.coding.CodePanel', {
             }, function () {
                 log("error")
             });
+        }
+
+        function runTesting() {
+            var values = visualisation.tape.tape.form.getValues();
+            var data = [], tape = [];
+            var i, j;
+
+            for (i in values) {
+                data.push(values[i]);
+            }
+
+            for (i = 0; i < data.length; i++) if (data[i]) break;
+            for (j = data.length - 1; j >= 0; j--) if (data[j]) break;
+            for (; i <= j; i++) tape.push(data[i] ? data[i] : " ");
+
+            var c = code.getValue().split("\n")
         }
 
         me.loadProblem = function (problemId) {
@@ -150,6 +204,47 @@ Ext.define('AA.view.coding.CodePanel', {
             window.location.href = "#problem/" + (+me.problemId + 1);
         }
 
+        me.on('afterrender', function () {
+            linesContainer.el.dom.appendChild(linesDiv);
+            codeArea.el.dom.focus();
+            checkCodeAreaDivEmpty();
+            refreshlines();
+            var txtArea = codeArea.el.dom;
+            var lines = linesDiv;
+
+            txtArea.onscroll = function () {
+                lines.style.top = -(txtArea.scrollTop) + "px";
+                return true;
+            }
+
+            txtArea.onkeyup = onKeyListener;
+            txtArea.onkeydown = onKeyListener;
+        });
+
+        function onKeyListener() {
+            checkCodeAreaDivEmpty();
+            refreshlines();
+            return true;
+        }
+
+        function checkCodeAreaDivEmpty() {
+            if (!codeArea.el.dom.childElementCount) {
+                var div = document.createElement("div");
+                var br = document.createElement("br");
+                div.appendChild(br);
+                codeArea.el.dom.appendChild(div);
+            }
+        }
+
+        function refreshlines() {
+            var nLines = codeArea.el.dom.childElementCount;
+            var lines = linesDiv;
+            lines.innerHTML = "";
+            for (var i = 1; i <= nLines; i++) {
+                lines.innerHTML = lines.innerHTML + "<div class='line'>" + i + ":</div>";
+            }
+            lines.style.top = -(codeArea.el.dom.scrollTop) + "px";
+        }
     }
 });
 
